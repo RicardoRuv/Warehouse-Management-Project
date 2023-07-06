@@ -1,12 +1,5 @@
 package com.skillstorm.project1.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 // @Entity
 // @Table(name = "warehouse_item")
 public class WarehouseItem {
@@ -23,6 +16,12 @@ public class WarehouseItem {
     private int quantity;
 
     public WarehouseItem() {
+    }
+
+    public WarehouseItem(Warehouse warehouse, Item item, int quantity) {
+        this.warehouse = warehouse;
+        this.item = item;
+        this.quantity = quantity;
     }
 
     public WarehouseItem(int warehouseItem_id, Warehouse warehouse, Item item, int quantity) {

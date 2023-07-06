@@ -21,6 +21,11 @@ public class Item {
     public Item() {
     }
 
+    public Item(String item_name, String item_description) {
+        this.item_name = item_name;
+        this.item_description = item_description;
+    }
+
     public Item(int item_id, String item_name, String item_description) {
         this.item_id = item_id;
         this.item_name = item_name;

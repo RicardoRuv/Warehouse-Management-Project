@@ -25,6 +25,11 @@ public class Warehouse {
     public Warehouse() {
     }
 
+    public Warehouse(String warehouse_name, int warehouse_capacity) {
+        this.warehouse_name = warehouse_name;
+        this.warehouse_capacity = warehouse_capacity;
+    }
+
     public Warehouse(int warehouse_id, String warehouse_name, int warehouse_capacity) {
         this.warehouse_id = warehouse_id;
         this.warehouse_name = warehouse_name;
