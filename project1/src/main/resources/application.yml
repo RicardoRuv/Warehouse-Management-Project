@@ -1,0 +1,18 @@
+spring:
+    datasource:
+        # url: jdbc:h2:mem:moviesdb   # name your db - if you want to persist data between runs you can specify file path jdbc:h2:file:[path]
+        # username: sa                #this is default username for h2
+        # password:                   #optional for h2
+        # driverClassName: org.h2.Driver      #jdbc uses this to connect to database
+        url: jdbc:postgresql://localhost:5432/WarehouseManagementDB #"movies" would be the dbname
+        username: postgres
+        password: admin
+
+    #jpa:ware
+        # database-platform: org.hibernate.dialect.H2Dialect  #tells spring data jpa that we're using h2 database
+        # defer-datasource-initialization: true               #tells JPA to wait until hibernate has initialized before loading the data to h2
+        
+
+    output:
+        ansi:
+            enabled: ALWAYS     #lets your terminal display colors
