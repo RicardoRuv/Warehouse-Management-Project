@@ -7,29 +7,29 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "item")
+@Table(name = "ITEM")
 public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int item_id;
 
-    private String item_name;
+    private String make;
 
-    private String item_description;
+    private String model;
 
     public Item() {
     }
 
     public Item(String item_name, String item_description) {
-        this.item_name = item_name;
-        this.item_description = item_description;
+        this.make = item_name;
+        this.model = item_description;
     }
 
     public Item(int item_id, String item_name, String item_description) {
         this.item_id = item_id;
-        this.item_name = item_name;
-        this.item_description = item_description;
+        this.make = item_name;
+        this.model = item_description;
     }
 
     public int getItem_id() {
@@ -40,20 +40,20 @@ public class Item {
         this.item_id = item_id;
     }
 
-    public String getItem_name() {
-        return item_name;
+    public String getMake() {
+        return make;
     }
 
-    public void setItem_name(String item_name) {
-        this.item_name = item_name;
+    public void setMake(String item_name) {
+        this.make = item_name;
     }
 
     public String getItem_description() {
-        return item_description;
+        return model;
     }
 
     public void setItem_description(String item_description) {
-        this.item_description = item_description;
+        this.model = item_description;
     }
 
     @Override
@@ -61,8 +61,8 @@ public class Item {
         final int prime = 31;
         int result = 1;
         result = prime * result + item_id;
-        result = prime * result + ((item_name == null) ? 0 : item_name.hashCode());
-        result = prime * result + ((item_description == null) ? 0 : item_description.hashCode());
+        result = prime * result + ((make == null) ? 0 : make.hashCode());
+        result = prime * result + ((model == null) ? 0 : model.hashCode());
         return result;
     }
 
@@ -77,15 +77,15 @@ public class Item {
         Item other = (Item) obj;
         if (item_id != other.item_id)
             return false;
-        if (item_name == null) {
-            if (other.item_name != null)
+        if (make == null) {
+            if (other.make != null)
                 return false;
-        } else if (!item_name.equals(other.item_name))
+        } else if (!make.equals(other.make))
             return false;
-        if (item_description == null) {
-            if (other.item_description != null)
+        if (model == null) {
+            if (other.model != null)
                 return false;
-        } else if (!item_description.equals(other.item_description))
+        } else if (!model.equals(other.model))
             return false;
         return true;
     }
