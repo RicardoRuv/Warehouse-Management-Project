@@ -1,7 +1,18 @@
 package com.skillstorm.project1.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "warehouse_item")
 public class WarehouseItem {
 
+    @Id
+    @Column
+    @GeneratedValue(stategy = GenerationType.IDENTITY)
     private int warehouseItem_id;
 
     private Warehouse warehouse;
