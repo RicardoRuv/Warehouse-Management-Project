@@ -1,7 +1,5 @@
 package com.skillstorm.project1.models;
 
-// @Entity
-// @Table(name = "warehouse_item")
 public class WarehouseItem {
 
     // @Id
