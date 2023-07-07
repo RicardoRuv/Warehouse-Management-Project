@@ -1,16 +1,29 @@
 package com.skillstorm.project1.models;
 
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "WAREHOUSE_ITEM")
 public class WarehouseItem {
 
-    // @Id
-    // @Column
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int warehouseItem_id;
+    @EmbeddedId
+    private CompositeKey id;
 
+    @ManyToOne // links which warehouse has which items
+    @JoinColumn(name = "warehouse_id", insertable = false, updatable = false) // specify foreign key
     private Warehouse warehouse;
+    // private int warehouse_id;
 
+    @ManyToOne // Links how many items / warehouse id
+    @JoinColumn(name = "item_id", insertable = false, updatable = false) // specify foreign key
     private Item item;
 
+    @Column
     private int quantity;
 
     public WarehouseItem() {
@@ -20,21 +33,6 @@ public class WarehouseItem {
         this.warehouse = warehouse;
         this.item = item;
         this.quantity = quantity;
-    }
-
-    public WarehouseItem(int warehouseItem_id, Warehouse warehouse, Item item, int quantity) {
-        this.warehouseItem_id = warehouseItem_id;
-        this.warehouse = warehouse;
-        this.item = item;
-        this.quantity = quantity;
-    }
-
-    public int getWarehouseItem_id() {
-        return warehouseItem_id;
-    }
-
-    public void setWarehouseItem_id(int warehouseItem_id) {
-        this.warehouseItem_id = warehouseItem_id;
     }
 
     public Warehouse getWarehouse() {
@@ -65,7 +63,6 @@ public class WarehouseItem {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + warehouseItem_id;
         result = prime * result + ((warehouse == null) ? 0 : warehouse.hashCode());
         result = prime * result + ((item == null) ? 0 : item.hashCode());
         result = prime * result + quantity;
@@ -81,8 +78,6 @@ public class WarehouseItem {
         if (getClass() != obj.getClass())
             return false;
         WarehouseItem other = (WarehouseItem) obj;
-        if (warehouseItem_id != other.warehouseItem_id)
-            return false;
         if (warehouse == null) {
             if (other.warehouse != null)
                 return false;

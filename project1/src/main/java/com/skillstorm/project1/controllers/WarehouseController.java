@@ -21,7 +21,7 @@ public class WarehouseController {
         this.warehouseService = warehouseService;
     }
 
-    @GetMapping
+    @GetMapping // GET /warehouse
     public List<Warehouse> getWarehouses() {
         return warehouseService.getWarehouses();
     }

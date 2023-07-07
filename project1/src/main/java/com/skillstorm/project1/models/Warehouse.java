@@ -1,10 +1,16 @@
 package com.skillstorm.project1.models;
 
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity // tells jpa that this class relates to a db table
 @Table(name = "WAREHOUSE") // tells jpa WHICH db table- name isisnt needed if your class name is the same
@@ -12,12 +18,19 @@ import javax.persistence.Table;
 public class Warehouse {
 
     @Id
+    @Column(name = "warehouse_id") // says this is a db column
     @GeneratedValue(strategy = GenerationType.IDENTITY) // SPECIFY AUTO INCREMENT
     private int warehouse_id;
 
+    @Column(name = "warehouse_name")
     private String warehouse_name;
 
+    @Column(name = "maximum_capacity")
     private int maximum_capacity;
+
+    @JsonBackReference
+    @OneToMany(targetEntity = WarehouseItem.class, mappedBy = "warehouse")
+    private List<WarehouseItem> warehouseItems;
 
     public Warehouse() {
     }
