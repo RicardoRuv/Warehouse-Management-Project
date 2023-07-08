@@ -18,16 +18,20 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class Item {
 
     @Id // SPECIFY primary key
-    @Column // says this is a db column
+    @Column(name = "item_id") // says this is a db column
     @GeneratedValue(strategy = GenerationType.IDENTITY) // SPECIFY AUTO INCREMENT
     private int item_id;
 
+    @Column(name = "make")
     private String make;
 
+    @Column(name = "model")
     private String model;
 
-    @JsonBackReference
-    @OneToMany(targetEntity = WarehouseItem.class, mappedBy = "item")
+    @JsonBackReference // prevents json infinite recursion
+    // specifies this is the one side of the one to many relationship
+    @OneToMany(targetEntity = WarehouseItem.class, mappedBy = "item") // itm is the name of the field in the warehouse
+                                                                      // item class
     private List<WarehouseItem> warehouseItems;
 
     public Item() {

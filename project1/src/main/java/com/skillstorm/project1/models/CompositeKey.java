@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+//helps create the key that will be used to identify the warehouse item
 @Embeddable
 public class CompositeKey implements Serializable {
 

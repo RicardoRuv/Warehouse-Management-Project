@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.skillstorm.project1.models.Warehouse;
 import com.skillstorm.project1.repositories.WarehouseRepository;
 
+//all business logic for controllers and repositories
 @Service
 public class WarehouseService {
 
