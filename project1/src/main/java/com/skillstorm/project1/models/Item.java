@@ -33,15 +33,15 @@ public class Item {
     public Item() {
     }
 
-    public Item(String item_name, String item_description) {
+    public Item(String item_name, String model) {
         this.make = item_name;
-        this.model = item_description;
+        this.model = model;
     }
 
-    public Item(int item_id, String item_name, String item_description) {
+    public Item(int item_id, String item_name, String model) {
         this.item_id = item_id;
         this.make = item_name;
-        this.model = item_description;
+        this.model = model;
     }
 
     public int getItem_id() {
@@ -60,12 +60,12 @@ public class Item {
         this.make = item_name;
     }
 
-    public String getItem_description() {
+    public String getModel() {
         return model;
     }
 
-    public void setItem_description(String item_description) {
-        this.model = item_description;
+    public void setModel(String model) {
+        this.model = model;
     }
 
     @Override
