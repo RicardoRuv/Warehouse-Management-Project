@@ -12,6 +12,7 @@ import com.skillstorm.project1.models.Warehouse;
 @Repository
 public interface WarehouseRepository extends JpaRepository<Warehouse, Integer> {
 
+    // JPA will generate the code for most of these -- save , findall, delete, etc
     public Optional<Warehouse> findById(int id);
 
     public Optional<Warehouse> findByWarehouseName(String name);

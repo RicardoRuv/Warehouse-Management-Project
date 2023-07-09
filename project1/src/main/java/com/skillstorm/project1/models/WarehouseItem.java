@@ -47,6 +47,10 @@ public class WarehouseItem {
         return item;
     }
 
+    public CompositeKey getId() {
+        return id;
+    }
+
     public void setItem(Item item) {
         this.item = item;
     }
@@ -91,6 +95,14 @@ public class WarehouseItem {
         if (quantity != other.quantity)
             return false;
         return true;
+    }
+
+    public Integer getWarehouseId() {
+        return this.id.getWarehouse_id();
+    }
+
+    public void setId(CompositeKey id) {
+        this.id = id;
     }
 
 }

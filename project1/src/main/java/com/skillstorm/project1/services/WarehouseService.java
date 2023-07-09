@@ -10,15 +10,11 @@ import com.skillstorm.project1.models.Warehouse;
 import com.skillstorm.project1.repositories.WarehouseRepository;
 
 //all business logic for controllers and repositories
+//CRUD - Create, Read, Update, Delete
 @Service
 public class WarehouseService {
     @Autowired
     WarehouseRepository warehouseRepository;
-
-    // @Autowired // constructor injection
-    // public WarehouseService(WarehouseRepository warehouseRepository) {
-    // this.warehouseRepository = warehouseRepository;
-    // }
 
     public List<Warehouse> getWarehouses() {
 
@@ -45,6 +41,27 @@ public class WarehouseService {
             throw new RuntimeException("Warehouse does not exist");
         }
 
+    }
+
+    public Warehouse getWarehouseById(Integer id) {
+
+        Optional<Warehouse> existingWarehouse = warehouseRepository.findById(id);
+        if (existingWarehouse.isPresent()) {
+            return warehouseRepository.findById(id).get();
+        } else {
+            throw new RuntimeException("Warehouse does not exist" + id + " does not exist");
+        }
+    }
+
+    public void updateCapacity(int id, int capacity) {
+        Optional<Warehouse> existingWarehouse = warehouseRepository.findById(id);
+        if (existingWarehouse.isPresent()) {
+            Warehouse warehouse = warehouseRepository.findById(id).get();
+            warehouse.setWarehouse_capacity(capacity);
+            warehouseRepository.save(warehouse);
+        } else {
+            throw new RuntimeException("Warehouse does not exist");
+        }
     }
 
 }
