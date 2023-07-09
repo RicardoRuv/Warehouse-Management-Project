@@ -23,7 +23,7 @@ public class Warehouse {
     private int warehouse_id;
 
     @Column(name = "warehouse_name")
-    private String warehouse_name;
+    private String warehouseName;
 
     @Column(name = "maximum_capacity")
     private int maximum_capacity;
@@ -35,14 +35,14 @@ public class Warehouse {
     public Warehouse() {
     }
 
-    public Warehouse(String warehouse_name, int warehouse_capacity) {
-        this.warehouse_name = warehouse_name;
+    public Warehouse(String warehouseName, int warehouse_capacity) {
+        this.warehouseName = warehouseName;
         this.maximum_capacity = warehouse_capacity;
     }
 
-    public Warehouse(int warehouse_id, String warehouse_name, int warehouse_capacity) {
+    public Warehouse(int warehouse_id, String warehouseName, int warehouse_capacity) {
         this.warehouse_id = warehouse_id;
-        this.warehouse_name = warehouse_name;
+        this.warehouseName = warehouseName;
         this.maximum_capacity = warehouse_capacity;
     }
 
@@ -55,11 +55,11 @@ public class Warehouse {
     }
 
     public String getWarehouse_name() {
-        return warehouse_name;
+        return warehouseName;
     }
 
     public void setWarehouse_name(String warehouse_name) {
-        this.warehouse_name = warehouse_name;
+        this.warehouseName = warehouse_name;
     }
 
     public int getWarehouse_capacity() {
@@ -75,7 +75,7 @@ public class Warehouse {
         final int prime = 31;
         int result = 1;
         result = prime * result + warehouse_id;
-        result = prime * result + ((warehouse_name == null) ? 0 : warehouse_name.hashCode());
+        result = prime * result + ((warehouseName == null) ? 0 : warehouseName.hashCode());
         result = prime * result + maximum_capacity;
         return result;
     }
@@ -91,14 +91,13 @@ public class Warehouse {
         Warehouse other = (Warehouse) obj;
         if (warehouse_id != other.warehouse_id)
             return false;
-        if (warehouse_name == null) {
-            if (other.warehouse_name != null)
+        if (warehouseName == null) {
+            if (other.warehouseName != null)
                 return false;
-        } else if (!warehouse_name.equals(other.warehouse_name))
+        } else if (!warehouseName.equals(other.warehouseName))
             return false;
         if (maximum_capacity != other.maximum_capacity)
             return false;
         return true;
     }
-
 }

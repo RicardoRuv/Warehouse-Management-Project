@@ -1,6 +1,7 @@
 package com.skillstorm.project1.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,16 +12,29 @@ import com.skillstorm.project1.repositories.WarehouseRepository;
 //all business logic for controllers and repositories
 @Service
 public class WarehouseService {
+    @Autowired
+    WarehouseRepository warehouseRepository;
 
-    private final WarehouseRepository warehouseRepository;
-
-    @Autowired // constructor injection
-    public WarehouseService(WarehouseRepository warehouseRepository) {
-        this.warehouseRepository = warehouseRepository;
-    }
+    // @Autowired // constructor injection
+    // public WarehouseService(WarehouseRepository warehouseRepository) {
+    // this.warehouseRepository = warehouseRepository;
+    // }
 
     public List<Warehouse> getWarehouses() {
-        return warehouseRepository.findAll();
+
+        try {
+            return warehouseRepository.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException("No Warehouses found");
+        }
+    }
+
+    public Warehouse createWarehouse(Warehouse warehouse) {
+        Optional<Warehouse> existingWarehouse = warehouseRepository.findByWarehouseName(warehouse.getWarehouse_name());
+        if (existingWarehouse.isPresent()) {
+            throw new RuntimeException("Warehouse already exists");
+        }
+        return warehouseRepository.save(warehouse);
     }
 
 }

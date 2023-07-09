@@ -15,14 +15,11 @@ import com.skillstorm.project1.repositories.ItemRepository;
 @Service
 public class ItemService {
 
-    private final ItemRepository itemRepository;
-    private final WarehouseService warehouseService;
+    @Autowired
+    ItemRepository itemRepository;
 
     @Autowired
-    public ItemService(ItemRepository itemRepository, WarehouseService warehouseService) {
-        this.itemRepository = itemRepository;
-        this.warehouseService = warehouseService;
-    }
+    WarehouseService warehouseService;
 
     public List<Item> getItems() {
         try {

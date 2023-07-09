@@ -17,12 +17,10 @@ import com.skillstorm.project1.services.ItemService;
 @RequestMapping("/cars")
 public class ItemController {
 
-    private final ItemService itemService;
+    @Autowired
+    ItemService itemService;
 
-    @Autowired // constructor injection
-    public ItemController(ItemService itemService) {
-        this.itemService = itemService;
-    }
+    /* Get Mappings */
 
     // represents the whole HTTP response: status code, headers, and body
     @GetMapping
@@ -32,6 +30,7 @@ public class ItemController {
         return new ResponseEntity<List<Item>>(items, HttpStatus.OK);
     }
 
+    /* Post Mappings */
     @PostMapping("/car")
     public ResponseEntity<Item> createItem(Item item) {
         Item created = itemService.createItem(item);
