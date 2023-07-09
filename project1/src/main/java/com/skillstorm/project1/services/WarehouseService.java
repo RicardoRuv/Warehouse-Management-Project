@@ -37,4 +37,14 @@ public class WarehouseService {
         return warehouseRepository.save(warehouse);
     }
 
+    public void deleteWarehouse(Warehouse warehouse) {
+        Optional<Warehouse> existingWarehouse = warehouseRepository.findById(warehouse.getWarehouse_id());
+        if (existingWarehouse.isPresent()) {
+            warehouseRepository.delete(warehouse);
+        } else {
+            throw new RuntimeException("Warehouse does not exist");
+        }
+
+    }
+
 }

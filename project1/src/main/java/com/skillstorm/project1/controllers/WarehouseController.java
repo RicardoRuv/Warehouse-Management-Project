@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,5 +33,13 @@ public class WarehouseController {
     public ResponseEntity<Warehouse> createWarehouse(Warehouse warehouse) {
         Warehouse created = warehouseService.createWarehouse(warehouse);
         return new ResponseEntity<Warehouse>(created, HttpStatus.CREATED);
+    }
+
+    /* Delete Mappings */
+
+    @DeleteMapping("/warehouse")
+    public ResponseEntity<Warehouse> deleteWarehouse(Warehouse warehouse) {
+        warehouseService.deleteWarehouse(warehouse);
+        return new ResponseEntity<Warehouse>(HttpStatus.OK);
     }
 }
