@@ -68,4 +68,14 @@ public class ItemService {
         }
     }
 
+    public int deleteItem(int id) {
+        Optional<Item> existingItem = itemRepository.findById(id);
+        if (existingItem.isPresent()) {
+            itemRepository.deleteById(id);
+            return 1;
+        } else {
+            throw new EntityNotFoundException("Car not found");
+        }
+    }
+
 }
