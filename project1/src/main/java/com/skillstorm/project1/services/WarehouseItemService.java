@@ -52,14 +52,19 @@ public class WarehouseItemService {
         }
     }
 
+    // method to update an existing warehouse item
     @Transactional
     public int updateWarehouseItem(int warehouseId, int itemId, int quantity) {
+        // making sure warehouse entry already exists
         Optional<WarehouseItem> existingWarehouseItem = warehouseItemRepository
                 .findById(findWarehouseItemIds(warehouseId, itemId).getId());
         if (existingWarehouseItem.isPresent()) {
+            // getting the ware house to make sure new updated quantity does not exceed
+            // available capacity
             Optional<Warehouse> existingWarehouse = warehouseRepository
                     .findById(existingWarehouseItem.get().getWarehouseId());
-            int currentCapacity = existingWarehouse.get().getWarehouse_capacity();
+            int currentCapacity = existingWarehouse.get().getWarehouse_capacity(); // Getting curr. capacity of
+                                                                                   // warehouse
 
             if (quantity + existingWarehouseItem.get().getQuantity() > currentCapacity) {
                 throw new RuntimeException("Warehouse capacity exceeded");
@@ -68,20 +73,25 @@ public class WarehouseItemService {
                 existingWarehouse.get().setWarehouse_capacity(currentCapacity - quantity);
             }
             return 1;
+            // Warehouse entry does not exist, therefore cannot update
         } else {
             throw new RuntimeException("Create a new inventory item, item right now does not exist");
         }
     }
 
+    // method creates a new entry in warehouseItem table (inventory)
     @Transactional
     public WarehouseItem createWarehouseItem(int warehouseId, int itemId, int quantity) {
+        // Making sure both warehouse and item exist
         Optional<Warehouse> existingWarehouse = warehouseRepository.findById(warehouseId);
         Optional<Item> existingItem = itemRepository.findById(itemId);
 
+        // making sure warehouse capacity is not exceeded
         int currentCapacity = warehouseService.getWarehouseById(warehouseId).getWarehouse_capacity();
         if (quantity > currentCapacity) {
             throw new RuntimeException("Warehouse capacity exceeded");
         }
+        // updating warehouse capacity after new entry is created
         warehouseService.updateCapacity(warehouseId, currentCapacity - quantity);
         WarehouseItem warehouseItem = new WarehouseItem();
         CompositeKey compositeKey = new CompositeKey(warehouseId, itemId);

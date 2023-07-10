@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,24 @@ public class ItemService {
 
         // if car does not exist, create it
         return itemRepository.save(item);
+    }
+
+    @Transactional
+    public int updateItem(int id, String make, String model) {
+        if (make == null || model == null) {
+            throw new EntityNotFoundException("Fields cannot be null");
+        }
+        Optional<Item> existingItem = itemRepository.findById(id);
+
+        if (existingItem.isPresent()) {
+            Item item = existingItem.get();
+            item.setMake(make);
+            item.setModel(model);
+            itemRepository.save(item);
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }

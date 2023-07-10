@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skillstorm.project1.models.Item;
@@ -19,7 +22,7 @@ public class ItemController {
 
     @Autowired
     ItemService itemService;
-
+    // CRUD - Create, Read, Update, Delete
     /* Get Mappings */
 
     // represents the whole HTTP response: status code, headers, and body
@@ -35,6 +38,14 @@ public class ItemController {
     public ResponseEntity<Item> createItem(Item item) {
         Item created = itemService.createItem(item);
         return new ResponseEntity<Item>(created, HttpStatus.CREATED);
+    }
+
+    /* Put mapping */
+    @PutMapping("/car/update")
+    public ResponseEntity<Integer> updateItem(@RequestParam int id, @RequestParam String make,
+            @RequestParam String model) {
+        int updated = itemService.updateItem(id, make, model);
+        return new ResponseEntity<Integer>(updated, HttpStatus.OK);
     }
 
 }
