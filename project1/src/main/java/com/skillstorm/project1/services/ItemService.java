@@ -59,4 +59,13 @@ public class ItemService {
         }
     }
 
+    public Item getItembyId(int id) {
+        Optional<Item> existingItem = itemRepository.findById(id);
+        if (existingItem.isPresent()) {
+            return existingItem.get();
+        } else {
+            throw new EntityNotFoundException("Car not found");
+        }
+    }
+
 }

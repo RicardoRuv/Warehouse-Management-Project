@@ -33,6 +33,12 @@ public class ItemController {
         return new ResponseEntity<List<Item>>(items, HttpStatus.OK);
     }
 
+    @GetMapping("/car/{id}")
+    public ResponseEntity<Item> getItemById(@PathVariable int id) {
+        Item item = itemService.getItembyId(id);
+        return new ResponseEntity<Item>(item, HttpStatus.OK);
+    }
+
     /* Post Mappings */
     @PostMapping("/car")
     public ResponseEntity<Item> createItem(Item item) {
