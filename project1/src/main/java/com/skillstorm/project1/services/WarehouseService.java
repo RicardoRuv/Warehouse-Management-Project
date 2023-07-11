@@ -3,6 +3,8 @@ package com.skillstorm.project1.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,6 +61,20 @@ public class WarehouseService {
             Warehouse warehouse = warehouseRepository.findById(id).get();
             warehouse.setWarehouse_capacity(capacity);
             warehouseRepository.save(warehouse);
+        } else {
+            throw new RuntimeException("Warehouse does not exist");
+        }
+    }
+
+    @Transactional
+    public int updateWarehouse(int id, String name, int capacity) {
+        Optional<Warehouse> existingWarehouse = warehouseRepository.findById(id);
+        if (existingWarehouse.isPresent()) {
+            Warehouse warehouse = warehouseRepository.findById(id).get();
+            warehouse.setWarehouse_name(name);
+            warehouse.setWarehouse_capacity(capacity);
+            warehouseRepository.save(warehouse);
+            return 1;
         } else {
             throw new RuntimeException("Warehouse does not exist");
         }

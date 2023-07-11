@@ -40,6 +40,15 @@ public class WarehouseItemController {
         return new ResponseEntity<List<WarehouseItem>>(warehouseItems, HttpStatus.OK);
     }
 
+    // @GetMapping("/warehouse/{id}")
+    // public ResponseEntity<List<WarehouseItem>>
+    // getWarehouseItemsByWarehouseId(@PathVariable int id) {
+    // List<WarehouseItem> warehouseItems =
+    // warehouseItemService.getWarehouseItemsByWarehouseId(id);
+    // return new ResponseEntity<List<WarehouseItem>>(warehouseItems,
+    // HttpStatus.OK);
+    // }
+
     /* POST MAPPING */
     @PostMapping
     public ResponseEntity<WarehouseItem> createWarehouseItem(@RequestParam("id") int warehouseId,

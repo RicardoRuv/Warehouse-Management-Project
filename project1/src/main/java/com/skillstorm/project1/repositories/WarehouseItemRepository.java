@@ -1,11 +1,15 @@
 package com.skillstorm.project1.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.skillstorm.project1.models.CompositeKey;
+import com.skillstorm.project1.models.Warehouse;
 import com.skillstorm.project1.models.WarehouseItem;
 
 // This is the repository layer. It is responsible for communicating with the database.
@@ -14,4 +18,14 @@ public interface WarehouseItemRepository extends JpaRepository<WarehouseItem, In
 
     Optional<WarehouseItem> findById(CompositeKey compositeKey);
 
+    // @Query("SELECT i.warehouse FROM Inventory i WHERE i.warehouse.wid = :wid")
+    // Optional<List<WarehouseItem>> findWarehouseById(@Param("wid") int id);
+
 }
+
+// @Query("update Movie m set m.title = :new_title where id = :movie_id")
+// // any queries that do inserts, updates or deletes need @modifying
+// @Modifying
+// @Transactional // for transaction management in spring boot
+// public int updateMovieTitle(@Param("movie_id") int id, @Param("new_title")
+// String newTitle);

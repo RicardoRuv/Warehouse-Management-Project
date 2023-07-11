@@ -43,20 +43,31 @@ public class ItemService {
 
     @Transactional
     public int updateItem(int id, String make, String model) {
-        if (make == null || model == null) {
-            throw new EntityNotFoundException("Fields cannot be null");
-        }
-        Optional<Item> existingItem = itemRepository.findById(id);
+        if (make == null && model == null) {
+            throw new EntityNotFoundException("Both Fields cannot be null");
+        } else if (make == null) {
+            Optional<Item> existingItem = itemRepository.findById(id);
+            if (existingItem.isPresent()) {
+                Item item = existingItem.get();
+                item.setModel(model);
+                itemRepository.save(item);
+                return 1;
+            } else {
+                return 0;
+            }
+        } else if (model == null) {
+            Optional<Item> existingItem = itemRepository.findById(id);
+            if (existingItem.isPresent()) {
+                Item item = existingItem.get();
+                item.setMake(make);
+                itemRepository.save(item);
+                return 1;
+            } else {
+                return 0;
+            }
 
-        if (existingItem.isPresent()) {
-            Item item = existingItem.get();
-            item.setMake(make);
-            item.setModel(model);
-            itemRepository.save(item);
-            return 1;
-        } else {
-            return 0;
         }
+        return 0;
     }
 
     public Item getItembyId(int id) {
