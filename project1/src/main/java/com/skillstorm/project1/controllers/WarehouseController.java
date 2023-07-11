@@ -20,11 +20,11 @@ import com.skillstorm.project1.services.WarehouseService;
 @RestController
 @RequestMapping("/warehouses")
 public class WarehouseController {
-
+    // CRUD - Create, Read, Update, Delete
     @Autowired
     WarehouseService warehouseService;
 
-    /* Get */
+    /* Get Mappings (READ) */
     @GetMapping // GET /warehouse
     public List<Warehouse> getWarehouses() {
         return warehouseService.getWarehouses();
@@ -35,22 +35,16 @@ public class WarehouseController {
         return warehouseService.getWarehouseById(id);
     }
 
+    /* PutMapping (UPDATE) */
     @PutMapping("/warehouse/update")
-    public ResponseEntity<Integer> updateWarehouse(@RequestParam int id, @RequestParam String name,
-            @RequestParam int capacity) {
+    public ResponseEntity<Integer> updateWarehouse(@RequestParam int id, @RequestParam(required = false) String name,
+            @RequestParam(required = false) Integer capacity) {
+
         int updated = warehouseService.updateWarehouse(id, name, capacity);
         return new ResponseEntity<Integer>(updated, HttpStatus.OK);
     }
-    // /* Put mapping */
-    // @PutMapping("/car/update")
-    // public ResponseEntity<Integer> updateItem(@RequestParam int id, @RequestParam
-    // String make,
-    // @RequestParam String model) {
-    // int updated = itemService.updateItem(id, make, model);
-    // return new ResponseEntity<Integer>(updated, HttpStatus.OK);
-    // }
 
-    /* Post Mappings */
+    /* Post Mappings (CREATE) */
 
     @PostMapping("/warehouse")
     public ResponseEntity<Warehouse> createWarehouse(Warehouse warehouse) {
@@ -58,7 +52,7 @@ public class WarehouseController {
         return new ResponseEntity<Warehouse>(created, HttpStatus.CREATED);
     }
 
-    /* Delete Mappings */
+    /* Delete Mappings (DELETE) */
 
     @DeleteMapping("/warehouse")
     public ResponseEntity<Warehouse> deleteWarehouse(Warehouse warehouse) {

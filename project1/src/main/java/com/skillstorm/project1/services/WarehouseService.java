@@ -3,11 +3,13 @@ package com.skillstorm.project1.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skillstorm.project1.models.Item;
 import com.skillstorm.project1.models.Warehouse;
 import com.skillstorm.project1.repositories.WarehouseRepository;
 
@@ -67,17 +69,31 @@ public class WarehouseService {
     }
 
     @Transactional
-    public int updateWarehouse(int id, String name, int capacity) {
-        Optional<Warehouse> existingWarehouse = warehouseRepository.findById(id);
-        if (existingWarehouse.isPresent()) {
-            Warehouse warehouse = warehouseRepository.findById(id).get();
-            warehouse.setWarehouse_name(name);
-            warehouse.setWarehouse_capacity(capacity);
-            warehouseRepository.save(warehouse);
-            return 1;
-        } else {
-            throw new RuntimeException("Warehouse does not exist");
+    public int updateWarehouse(int id, String name, Integer capacity) {
+        if (name == null && capacity == null) {
+            throw new EntityNotFoundException("Both Fields cannot be null");
+        } else if (name == null) {
+            Optional<Warehouse> existingWarehouse = warehouseRepository.findById(id);
+            if (existingWarehouse.isPresent()) {
+                Warehouse warehouse = warehouseRepository.findById(id).get();
+                warehouse.setWarehouse_capacity(capacity);
+                warehouseRepository.save(warehouse);
+                return 1;
+            } else {
+                return 0;
+            }
+        } else if (capacity == null) {
+            Optional<Warehouse> existingWarehouse = warehouseRepository.findById(id);
+            if (existingWarehouse.isPresent()) {
+                Warehouse warehouse = warehouseRepository.findById(id).get();
+                warehouse.setWarehouse_name(name);
+                warehouseRepository.save(warehouse);
+                return 1;
+            } else {
+                return 0;
+            }
         }
+        return 0;
     }
 
 }
