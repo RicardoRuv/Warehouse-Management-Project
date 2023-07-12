@@ -42,32 +42,20 @@ public class ItemService {
     }
 
     @Transactional
-    public int updateItem(int id, String make, String model) {
-        if (make == null && model == null) {
-            throw new EntityNotFoundException("Both Fields cannot be null");
-        } else if (make == null) {
-            Optional<Item> existingItem = itemRepository.findById(id);
-            if (existingItem.isPresent()) {
-                Item item = existingItem.get();
-                item.setModel(model);
-                itemRepository.save(item);
-                return 1;
-            } else {
-                return 0;
+    public int updateItem(Item item, String make, String model) {
+        Optional<Item> existingItem = itemRepository.findById(item.getItem_id());
+        if (existingItem.isPresent()) {
+            if (make != null) {
+                System.out.println(make + " this is make not null");
+                existingItem.get().setMake(make);
             }
-        } else if (model == null) {
-            Optional<Item> existingItem = itemRepository.findById(id);
-            if (existingItem.isPresent()) {
-                Item item = existingItem.get();
-                item.setMake(make);
-                itemRepository.save(item);
-                return 1;
-            } else {
-                return 0;
+            if (model != null) {
+                existingItem.get().setModel(model);
             }
-
+            return 1;
+        } else {
+            throw new EntityNotFoundException("Car not found");
         }
-        return 0;
     }
 
     public Item getItembyId(int id) {

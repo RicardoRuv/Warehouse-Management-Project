@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,9 +52,10 @@ public class ItemController {
 
     /* Put mapping */
     @PutMapping("/car/update")
-    public ResponseEntity<Integer> updateItem(@RequestParam int id, @RequestParam(required = false) String make,
+    public ResponseEntity<Integer> updateItem(@RequestBody Item item,
+            @RequestParam(required = false) String make,
             @RequestParam(required = false) String model) {
-        int updated = itemService.updateItem(id, make, model);
+        int updated = itemService.updateItem(item, make, model);
         return new ResponseEntity<Integer>(updated, HttpStatus.OK);
     }
 

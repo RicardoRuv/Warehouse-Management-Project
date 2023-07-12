@@ -72,13 +72,7 @@ public class WarehouseService {
     public int updateWarehouse(Warehouse warehouse, String name, Integer capacity) {
 
         Optional<Warehouse> OptionalWarehouse = warehouseRepository.findById(warehouse.getWarehouse_id());
-        System.out.println(capacity);
         if (OptionalWarehouse.isPresent()) {
-            System.out.println("Warehouse exists!!!!!!");
-            System.out.println(
-                    "Capacity: " + OptionalWarehouse.get().getWarehouse_capacity() + " passed value: " + capacity);
-            System.out.println("Name: " + OptionalWarehouse.get().getWarehouse_name() + " passed value: " + name);
-
             Warehouse warehouseOptional = warehouseRepository.findById(warehouse.getWarehouse_id()).get();
             if (name != null) {
                 warehouseOptional.setWarehouse_name(name);
