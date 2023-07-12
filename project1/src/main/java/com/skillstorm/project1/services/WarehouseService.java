@@ -69,31 +69,60 @@ public class WarehouseService {
     }
 
     @Transactional
-    public int updateWarehouse(int id, String name, Integer capacity) {
-        if (name == null && capacity == null) {
-            throw new EntityNotFoundException("Both Fields cannot be null");
-        } else if (name == null) {
-            Optional<Warehouse> existingWarehouse = warehouseRepository.findById(id);
-            if (existingWarehouse.isPresent()) {
-                Warehouse warehouse = warehouseRepository.findById(id).get();
-                warehouse.setWarehouse_capacity(capacity);
-                warehouseRepository.save(warehouse);
-                return 1;
-            } else {
-                return 0;
+    public int updateWarehouse(Warehouse warehouse, String name, Integer capacity) {
+
+        Optional<Warehouse> OptionalWarehouse = warehouseRepository.findById(warehouse.getWarehouse_id());
+        System.out.println(capacity);
+        if (OptionalWarehouse.isPresent()) {
+            System.out.println("Warehouse exists!!!!!!");
+            System.out.println(
+                    "Capacity: " + OptionalWarehouse.get().getWarehouse_capacity() + " passed value: " + capacity);
+            System.out.println("Name: " + OptionalWarehouse.get().getWarehouse_name() + " passed value: " + name);
+
+            Warehouse warehouseOptional = warehouseRepository.findById(warehouse.getWarehouse_id()).get();
+            if (name != null) {
+                warehouseOptional.setWarehouse_name(name);
             }
-        } else if (capacity == null) {
-            Optional<Warehouse> existingWarehouse = warehouseRepository.findById(id);
-            if (existingWarehouse.isPresent()) {
-                Warehouse warehouse = warehouseRepository.findById(id).get();
-                warehouse.setWarehouse_name(name);
-                warehouseRepository.save(warehouse);
-                return 1;
-            } else {
-                return 0;
+            if (capacity != null) {
+                System.out.println("Capacity is" + capacity);
+                warehouseOptional.setWarehouse_capacity(capacity);
+
             }
+            warehouseRepository.save(warehouseOptional);
+            return 1;
+        } else {
+            return 0;
         }
-        return 0;
     }
+
+    // @Transactional
+    // public int updateWarehouse(Warehouse warehouse, Integer id, String name,
+    // Integer capacity) {
+    // if (name == null && capacity == null) {
+    // throw new EntityNotFoundException("Both Fields cannot be null");
+
+    // } else if (name == null) {
+    // Optional<Warehouse> existingWarehouse = warehouseRepository.findById(id);
+    // if (existingWarehouse.isPresent()) {
+    // Warehouse warehouseOptional = warehouseRepository.findById(id).get();
+    // warehouseOptional.setWarehouse_capacity(capacity);
+    // warehouseRepository.save(warehouseOptional);
+    // return 1;
+    // } else {
+    // return 0;
+    // }
+    // } else if (capacity == null) {
+    // Optional<Warehouse> existingWarehouse = warehouseRepository.findById(id);
+    // if (existingWarehouse.isPresent()) {
+    // Warehouse warehouseOptional = warehouseRepository.findById(id).get();
+    // warehouseOptional.setWarehouse_name(name);
+    // warehouseRepository.save(warehouseOptional);
+    // return 1;
+    // } else {
+    // return 0;
+    // }
+    // }
+    // return 0;
+    // }
 
 }
