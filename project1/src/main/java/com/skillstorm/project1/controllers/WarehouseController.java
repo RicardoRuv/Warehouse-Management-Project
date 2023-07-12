@@ -58,8 +58,8 @@ public class WarehouseController {
 
     /* Delete Mappings (DELETE) */
 
-    @DeleteMapping("/warehouse")
-    public ResponseEntity<Warehouse> deleteWarehouse(Warehouse warehouse) {
+    @DeleteMapping("/warehouse/delete")
+    public ResponseEntity<Warehouse> deleteWarehouse(@RequestBody Warehouse warehouse) {
         warehouseService.deleteWarehouse(warehouse);
         return new ResponseEntity<Warehouse>(HttpStatus.OK);
     }

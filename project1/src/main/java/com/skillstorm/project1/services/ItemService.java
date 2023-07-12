@@ -52,9 +52,10 @@ public class ItemService {
             if (model != null) {
                 existingItem.get().setModel(model);
             }
+            itemRepository.save(existingItem.get());
             return 1;
         } else {
-            throw new EntityNotFoundException("Car not found");
+            return 0;
         }
     }
 

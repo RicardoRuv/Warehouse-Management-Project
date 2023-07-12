@@ -11,6 +11,8 @@ import java.util.Optional;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Integer> {
 
+    public Optional<Item> findById(int id);
+
     public Optional<Item> findByModel(String model);
 
     public Optional<Item> findByMake(String make);
