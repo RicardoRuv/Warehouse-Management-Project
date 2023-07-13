@@ -50,8 +50,8 @@ public class WarehouseController {
 
     /* Post Mappings (CREATE) */
 
-    @PostMapping("/warehouse")
-    public ResponseEntity<Warehouse> createWarehouse(Warehouse warehouse) {
+    @PostMapping("/warehouse/create")
+    public ResponseEntity<Warehouse> createWarehouse(@RequestBody Warehouse warehouse) {
         Warehouse created = warehouseService.createWarehouse(warehouse);
         return new ResponseEntity<Warehouse>(created, HttpStatus.CREATED);
     }

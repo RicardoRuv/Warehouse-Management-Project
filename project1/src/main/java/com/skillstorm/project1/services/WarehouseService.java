@@ -53,7 +53,7 @@ public class WarehouseService {
         if (existingWarehouse.isPresent()) {
             return warehouseRepository.findById(id).get();
         } else {
-            throw new RuntimeException("Warehouse does not exist" + id + " does not exist");
+            throw new RuntimeException("Warehouse with id: " + id + " does not exist");
         }
     }
 
