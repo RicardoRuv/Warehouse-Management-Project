@@ -16,4 +16,6 @@ public interface WarehouseRepository extends JpaRepository<Warehouse, Integer> {
     public Optional<Warehouse> findById(int id);
 
     public Optional<Warehouse> findByWarehouseName(String name);
+
+    // public Optional<Warehouse> findByName(String warehouseName);
 }

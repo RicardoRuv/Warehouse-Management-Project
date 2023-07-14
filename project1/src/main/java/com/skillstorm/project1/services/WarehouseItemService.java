@@ -58,6 +58,7 @@ public class WarehouseItemService {
         // making sure warehouse entry already exists
         Optional<WarehouseItem> existingWarehouseItem = warehouseItemRepository
                 .findById(findWarehouseItemIds(warehouseId, itemId).getId());
+
         if (existingWarehouseItem.isPresent()) {
             // getting the ware house to make sure new updated quantity does not exceed
             // available capacity
@@ -101,6 +102,48 @@ public class WarehouseItemService {
         warehouseItem.setQuantity(quantity);
         warehouseItem.setWarehouse(existingWarehouse.get());
         return warehouseItemRepository.save(warehouseItem);
+    }
+
+    // public int deleteWarehouseItem(int warehouseId, int itemId) {
+    // CompositeKey compositeKey = new CompositeKey(warehouseId, itemId);
+    // Optional<WarehouseItem> existingWarehouseItem =
+    // warehouseItemRepository.findById(compositeKey);
+    // if (existingWarehouseItem.isPresent()) {
+    // warehouseItemRepository.deleteById(compositeKey);
+    // return 1;
+    // } else {
+    // return 0;
+    // }
+    // }
+
+    public WarehouseItem createWarehouseItem(String warehouseName, String carModel, int quantity) {
+        // Making sure both warehouse and item exist
+        Optional<Warehouse> existingWarehouse = warehouseRepository.findByWarehouseName(warehouseName);
+        Optional<Item> existingItem = itemRepository.findByModel(carModel);
+
+        // making sure warehouse capacity is not exceeded
+        int currentCapacity = warehouseService.getWarehouseByName(warehouseName).getWarehouse_capacity();
+        if (quantity > currentCapacity) {
+            throw new RuntimeException("Warehouse capacity exceeded");
+        }
+        // updating warehouse capacity after new entry is created
+        warehouseService.updateCapacity(existingWarehouse.get().getWarehouse_id(), currentCapacity - quantity);
+        WarehouseItem warehouseItem = new WarehouseItem();
+        CompositeKey compositeKey = new CompositeKey(existingWarehouse.get().getWarehouse_id(),
+                existingItem.get().getItem_id());
+
+        warehouseItem.setId(compositeKey);
+        warehouseItem.setItem(existingItem.get());
+        warehouseItem.setQuantity(quantity);
+        warehouseItem.setWarehouse(existingWarehouse.get());
+        return warehouseItemRepository.save(warehouseItem);
+    }
+
+    public int deleteWarehouseItem(int warehouseId, int itemId) {
+        CompositeKey compositeKey = new CompositeKey(warehouseId, itemId);
+        Optional<WarehouseItem> existingWarehouseItem = warehouseItemRepository.findById(compositeKey);
+        existingWarehouseItem.ifPresent(warehouseItem -> warehouseItemRepository.delete(warehouseItem));
+        return 1;
     }
 
 }
