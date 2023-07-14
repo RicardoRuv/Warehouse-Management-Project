@@ -32,6 +32,8 @@ public class ItemService {
 
     public Item createItem(Item item) {
         // check if car already exists inside the db
+        // we check by model because the make can be repeated, and the id is auto
+        // generated
         Optional<Item> existingItem = itemRepository.findByModel(item.getModel());
         if (existingItem.isPresent()) {
             throw new EntityNotFoundException("Car already exists");
@@ -46,7 +48,6 @@ public class ItemService {
         Optional<Item> existingItem = itemRepository.findById(item.getItem_id());
         if (existingItem.isPresent()) {
             if (make != null) {
-                System.out.println(make + " this is make not null");
                 existingItem.get().setMake(make);
             }
             if (model != null) {
@@ -68,13 +69,21 @@ public class ItemService {
         }
     }
 
-    public int deleteItem(int id) {
-        Optional<Item> existingItem = itemRepository.findById(id);
+    public int deleteItem(Item item) {
+        Optional<Item> existingItem = itemRepository.findById(item.getItem_id());
         if (existingItem.isPresent()) {
-            itemRepository.deleteById(id);
+            itemRepository.delete(item);
             return 1;
         } else {
             throw new EntityNotFoundException("Car not found");
+        }
+    }
+
+    public List<Item> getAllItemByModel(String model) {
+        try {
+            return itemRepository.findAllByModel(model);
+        } catch (Exception e) {
+            throw new EntityNotFoundException("No Cars found");
         }
     }
 

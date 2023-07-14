@@ -38,6 +38,11 @@ public class WarehouseController {
         return warehouseService.getWarehouseById(id);
     }
 
+    @GetMapping("/name/{name}")
+    public Warehouse getWarehouseByName(@PathVariable String name) {
+        return warehouseService.getWarehouseByName(name);
+    }
+
     /* PutMapping (UPDATE) */
     @PutMapping("/warehouse/update")
     public ResponseEntity<Integer> updateWarehouse(@RequestBody Warehouse warehouse,

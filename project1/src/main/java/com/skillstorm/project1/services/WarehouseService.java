@@ -89,6 +89,15 @@ public class WarehouseService {
         }
     }
 
+    public Warehouse getWarehouseByName(String name) {
+        Optional<Warehouse> existingWarehouse = warehouseRepository.findByWarehouseName(name);
+        if (existingWarehouse.isPresent()) {
+            return warehouseRepository.findByWarehouseName(name).get();
+        } else {
+            throw new RuntimeException("Warehouse with name: " + name + " does not exist");
+        }
+    }
+
     // @Transactional
     // public int updateWarehouse(Warehouse warehouse, Integer id, String name,
     // Integer capacity) {

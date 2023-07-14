@@ -43,9 +43,15 @@ public class ItemController {
         return new ResponseEntity<Item>(item, HttpStatus.OK);
     }
 
+    @GetMapping("/car/model/{model}")
+    public ResponseEntity<List<Item>> getAllItemByModel(@PathVariable String model) {
+        List<Item> item = itemService.getAllItemByModel(model);
+        return new ResponseEntity<List<Item>>(item, HttpStatus.OK);
+    }
+
     /* Post Mappings */
-    @PostMapping("/car")
-    public ResponseEntity<Item> createItem(Item item) {
+    @PostMapping("/car/create")
+    public ResponseEntity<Item> createItem(@RequestBody Item item) {
         Item created = itemService.createItem(item);
         return new ResponseEntity<Item>(created, HttpStatus.CREATED);
     }
@@ -61,8 +67,8 @@ public class ItemController {
 
     /* DELETE MAPPING */
     @DeleteMapping("/car/delete")
-    public ResponseEntity<Integer> deleteItem(@RequestParam(value = "id") int id) {
-        int deleted = itemService.deleteItem(id);
+    public ResponseEntity<Integer> deleteItem(@RequestBody Item item) {
+        int deleted = itemService.deleteItem(item);
         return new ResponseEntity<Integer>(deleted, HttpStatus.OK);
     }
 }

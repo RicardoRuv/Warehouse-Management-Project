@@ -20,7 +20,7 @@ public class Item {
     @Id // SPECIFY primary key
     @Column(name = "item_id") // says this is a db column
     @GeneratedValue(strategy = GenerationType.IDENTITY) // SPECIFY AUTO INCREMENT
-    private int item_id;
+    private Integer item_id;
 
     @Column(name = "make")
     private String make;
@@ -42,17 +42,17 @@ public class Item {
         this.model = model;
     }
 
-    public Item(int item_id, String item_name, String model) {
+    public Item(Integer item_id, String item_name, String model) {
         this.item_id = item_id;
         this.make = item_name;
         this.model = model;
     }
 
-    public int getItem_id() {
+    public Integer getItem_id() {
         return item_id;
     }
 
-    public void setItem_id(int item_id) {
+    public void setItem_id(Integer item_id) {
         this.item_id = item_id;
     }
 
