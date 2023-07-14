@@ -43,6 +43,7 @@ public class WarehouseItemController {
         return new ResponseEntity<List<WarehouseItem>>(warehouseItems, HttpStatus.OK);
     }
 
+    /** Post mapping */
     @PostMapping("/create/{warehouseName}/{carModel}/{quantity}") // path variables
     public ResponseEntity<WarehouseItem> createWarehouseItem(@PathVariable String warehouseName,
             @PathVariable String carModel, @PathVariable int quantity) {
@@ -60,6 +61,7 @@ public class WarehouseItemController {
         return new ResponseEntity<Integer>(updated, HttpStatus.OK);
     }
 
+    /** DELETE MAPPING */
     @DeleteMapping("/delete/{warehouseId}/{itemId}")
     public ResponseEntity<Integer> deleteWarehouseItem(@PathVariable int warehouseId, @PathVariable int itemId) {
         int deleted = warehouseItemService.deleteWarehouseItem(warehouseId, itemId);
