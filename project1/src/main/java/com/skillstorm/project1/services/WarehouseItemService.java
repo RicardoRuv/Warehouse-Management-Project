@@ -104,18 +104,6 @@ public class WarehouseItemService {
         return warehouseItemRepository.save(warehouseItem);
     }
 
-    // public int deleteWarehouseItem(int warehouseId, int itemId) {
-    // CompositeKey compositeKey = new CompositeKey(warehouseId, itemId);
-    // Optional<WarehouseItem> existingWarehouseItem =
-    // warehouseItemRepository.findById(compositeKey);
-    // if (existingWarehouseItem.isPresent()) {
-    // warehouseItemRepository.deleteById(compositeKey);
-    // return 1;
-    // } else {
-    // return 0;
-    // }
-    // }
-
     public WarehouseItem createWarehouseItem(String warehouseName, String carModel, int quantity) {
         // Making sure both warehouse and item exist
         Optional<Warehouse> existingWarehouse = warehouseRepository.findByWarehouseName(warehouseName);
@@ -126,6 +114,7 @@ public class WarehouseItemService {
         if (quantity > currentCapacity) {
             throw new RuntimeException("Warehouse capacity exceeded");
         }
+
         // updating warehouse capacity after new entry is created
         warehouseService.updateCapacity(existingWarehouse.get().getWarehouse_id(), currentCapacity - quantity);
         WarehouseItem warehouseItem = new WarehouseItem();

@@ -18,14 +18,6 @@ public interface WarehouseItemRepository extends JpaRepository<WarehouseItem, In
 
     Optional<WarehouseItem> findById(CompositeKey compositeKey);
 
-    // @Query("SELECT i.warehouse FROM Inventory i WHERE i.warehouse.wid = :wid")
-    // Optional<List<WarehouseItem>> findWarehouseById(@Param("wid") int id);
+    void deleteById(CompositeKey compositeKey);
 
 }
-
-// @Query("update Movie m set m.title = :new_title where id = :movie_id")
-// // any queries that do inserts, updates or deletes need @modifying
-// @Modifying
-// @Transactional // for transaction management in spring boot
-// public int updateMovieTitle(@Param("movie_id") int id, @Param("new_title")
-// String newTitle);

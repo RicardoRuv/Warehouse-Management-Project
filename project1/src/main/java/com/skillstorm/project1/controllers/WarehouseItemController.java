@@ -39,20 +39,9 @@ public class WarehouseItemController {
     /** GET MAPPING */
     @GetMapping
     public ResponseEntity<List<WarehouseItem>> getWarehouseItems() {
-
         List<WarehouseItem> warehouseItems = warehouseItemService.getWarehouseItems();
         return new ResponseEntity<List<WarehouseItem>>(warehouseItems, HttpStatus.OK);
     }
-
-    /* POST MAPPING */
-    // @PostMapping("/create")
-    // public ResponseEntity<WarehouseItem> createWarehouseItem(@RequestParam("id")
-    // int warehouseId,
-    // @RequestParam("itemID") int itemId, @RequestParam("quantity") int quantity) {
-    // WarehouseItem created = warehouseItemService.createWarehouseItem(warehouseId,
-    // itemId, quantity);
-    // return new ResponseEntity<WarehouseItem>(created, HttpStatus.CREATED);
-    // }
 
     @PostMapping("/create/{warehouseName}/{carModel}/{quantity}") // path variables
     public ResponseEntity<WarehouseItem> createWarehouseItem(@PathVariable String warehouseName,
@@ -74,6 +63,7 @@ public class WarehouseItemController {
     @DeleteMapping("/delete/{warehouseId}/{itemId}")
     public ResponseEntity<Integer> deleteWarehouseItem(@PathVariable int warehouseId, @PathVariable int itemId) {
         int deleted = warehouseItemService.deleteWarehouseItem(warehouseId, itemId);
+
         return new ResponseEntity<Integer>(deleted, HttpStatus.OK);
     }
 

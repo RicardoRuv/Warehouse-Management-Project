@@ -43,16 +43,21 @@ public class ItemService {
         return itemRepository.save(item);
     }
 
+    // update car make:optional, model:optional
     @Transactional
     public int updateItem(Item item, String make, String model) {
+        // check if car exists
         Optional<Item> existingItem = itemRepository.findById(item.getItem_id());
+        // if car exists, update it
         if (existingItem.isPresent()) {
+            // if make or model is not null, update it
             if (make != null) {
                 existingItem.get().setMake(make);
             }
             if (model != null) {
                 existingItem.get().setModel(model);
             }
+            // save the updated car
             itemRepository.save(existingItem.get());
             return 1;
         } else {
@@ -60,8 +65,11 @@ public class ItemService {
         }
     }
 
+    // get car by id
     public Item getItembyId(int id) {
+        // check if car exists
         Optional<Item> existingItem = itemRepository.findById(id);
+        // if car exists, return it
         if (existingItem.isPresent()) {
             return existingItem.get();
         } else {
@@ -70,7 +78,9 @@ public class ItemService {
     }
 
     public int deleteItem(Item item) {
+        // check if car exists
         Optional<Item> existingItem = itemRepository.findById(item.getItem_id());
+        // if car exists, delete it
         if (existingItem.isPresent()) {
             itemRepository.delete(item);
             return 1;
@@ -79,6 +89,7 @@ public class ItemService {
         }
     }
 
+    // get all cars by model
     public List<Item> getAllItemByModel(String model) {
         try {
             return itemRepository.findAllByModel(model);
